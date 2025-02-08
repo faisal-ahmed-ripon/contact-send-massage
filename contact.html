@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <!-- Tailwind CSS and DaisyUI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@2.2.2/dist/full.js"></script>
+</head>
+
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+
+    <div class="w-full max-w-xl p-8 bg-white rounded-lg shadow-lg">
+        <h2 class="text-3xl font-bold text-center mb-6 text-blue-600">Contact Us</h2>
+
+        <!-- Form -->
+        <form id="contactForm" action="javascript:void(0)" class="space-y-6">
+            <!-- Name -->
+            <div class="form-control">
+                <label class="label" for="name">
+                    <span class="label-text text-lg font-semibold">Your Name</span>
+                </label>
+                <input type="text" id="name" class="input input-bordered w-full py-2 px-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-all" required />
+            </div>
+
+            <!-- Email -->
+            <div class="form-control">
+                <label class="label" for="email">
+                    <span class="label-text text-lg font-semibold">Your Email</span>
+                </label>
+                <input type="email" id="email" class="input input-bordered w-full py-2 px-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-all" required />
+            </div>
+
+            <!-- Phone -->
+            <div class="form-control">
+                <label class="label" for="phone">
+                    <span class="label-text text-lg font-semibold">Your Phone</span>
+                </label>
+                <input type="tel" id="phone" class="input input-bordered w-full py-2 px-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-all" required />
+            </div>
+
+            <!-- Message -->
+            <div class="form-control">
+                <label class="label" for="message">
+                    <span class="label-text text-lg font-semibold">Your Message</span>
+                </label>
+                <textarea id="message" class="textarea textarea-bordered w-full py-2 px-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-all" required></textarea>
+            </div>
+
+            <!-- Image Upload -->
+            <div class="form-control">
+                <label class="label" for="file">
+                    <span class="label-text text-lg font-semibold">Upload Your Image</span>
+                </label>
+                <input type="file" id="file" class="file-input file-input-bordered w-full py-2 px-4 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition-all" />
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-control">
+                <button type="submit" class="btn btn-primary w-full py-2 px-4 bg-blue-600 text-white rounded-lg transition-all duration-300 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500">
+                    Send
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Form submission prevents default behavior
+
+            // Form fields values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            const file = document.getElementById('file').files[0];
+
+            // Formatted message
+            const messageText = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`;
+
+            // Check if the user uploaded an image
+            let imageUrl = '';
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    imageUrl = reader.result; // Get the image data URL
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // WhatsApp link
+            const whatsAppLink = `https://wa.me/+8801890393486?text=${encodeURIComponent(messageText)}`;
+
+            // Directly go to WhatsApp link in the same tab (no new tab opened)
+            window.location.href = whatsAppLink;
+
+            // Reset the form
+            document.getElementById('contactForm').reset();
+        });
+    </script>
+
+</body>
+
+</html>
